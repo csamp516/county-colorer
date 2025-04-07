@@ -9,7 +9,9 @@ const { window } = new JSDOM(file);
 const output = [];
 window.document.querySelectorAll("title").forEach((item) => {
   const title = item.innerHTML;
-  output.push({ county: title, color: "" });
+  const parent = item.parentElement;
+
+  output.push({ county: title, color: "", id: parent.id });
 });
 
 const csv = converter.json2csv(output, (err, csv) => {
@@ -18,5 +20,5 @@ const csv = converter.json2csv(output, (err, csv) => {
   }
 });
 
-fs.writeFileSync("counties.csv", csv);
+fs.writeFileSync("counties.sample.csv", csv);
 console.log("CSV file created successfully.");
